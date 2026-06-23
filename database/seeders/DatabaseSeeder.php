@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,        // Login Manager dan Kasir
             InventorySeeder::class,   // Daftar Stok Bahan Baku
             ProductSeeder::class,     // Daftar Menu (Kopi, Makanan, dll)
-            RealisticTransactionSeeder::class, // Generate data transaksi yang realistis selama 16 bulan terakhir
+            // RealisticTransactionSeeder::class, // Generate data transaksi yang realistis selama 16 bulan terakhir
         ]);
     }
 }
