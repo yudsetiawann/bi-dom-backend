@@ -62,22 +62,25 @@ class RealisticTransactionSeeder extends Seeder
                 $totalAmount = 0;
 
                 // LANGKAH A: Siapkan barang dari Kolam Undian
+                $totalCogs = 0;
                 for ($j = 0; $j < $itemCount; $j++) {
                     $randomProduct = $productPool[array_rand($productPool)];
 
-                    // PENTING: Asumsi nama kolom harga di tabel products Anda adalah 'price'.
-                    // Jika namanya 'harga', ganti kata price di bawah ini menjadi harga.
                     $price = $randomProduct->price;
+                    $cogs = $randomProduct->cogs;
 
                     $qty = rand(1, 3);
                     $subtotal = $price * $qty;
+                    $subtotalCogs = $cogs * $qty;
 
                     $totalAmount += $subtotal;
+                    $totalCogs += $subtotalCogs;
 
                     $details[] = [
                         'product_id' => $randomProduct->id,
                         'qty' => $qty,
                         'subtotal' => $subtotal,
+                        'subtotal_cogs' => $subtotalCogs,
                         'created_at' => $trxTime,
                         'updated_at' => $trxTime,
                     ];
@@ -87,6 +90,8 @@ class RealisticTransactionSeeder extends Seeder
                 $trxId = DB::table('transactions')->insertGetId([
                     'receipt_no' => 'TRX-' . $trxTime->format('Ymd') . '-' . str_pad($receiptCounter++, 4, '0', STR_PAD_LEFT),
                     'total_amount' => $totalAmount,
+                    'total_cogs' => $totalCogs,
+                    'net_profit' => $totalAmount - $totalCogs,
                     'trx_date' => $trxTime->toDateString(),
                     'created_at' => $trxTime,
                     'updated_at' => $trxTime,
