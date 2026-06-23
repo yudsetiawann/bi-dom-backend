@@ -33,5 +33,8 @@ Route::get('/run-online-fix', function () {
             'message' => $e->getMessage()
         ], 500);
     }
-});
+})->withoutMiddleware([
+    \Illuminate\Session\Middleware\StartSession::class,
+    \Illuminate\Cookie\Middleware\ShareErrorsFromSession::class,
+]);
 
