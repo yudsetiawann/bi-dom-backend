@@ -278,17 +278,21 @@ class DashboardRepository
         if (! $categoryId) {
             $data = DB::table('transactions')
                 ->whereBetween('trx_date', [$startDate, $endDate])
+                ->whereNotNull('trx_date')
                 ->selectRaw('DAYOFWEEK(trx_date) as day_num, HOUR(trx_date) as hour, COUNT(id) as total_trx')
                 ->groupBy('day_num', 'hour')
+                ->havingRaw('day_num IS NOT NULL AND hour IS NOT NULL')
                 ->get();
         } else {
             $data = DB::table('transaction_details')
                 ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
                 ->join('products', 'transaction_details.product_id', '=', 'products.id')
                 ->whereBetween('transactions.trx_date', [$startDate, $endDate])
+                ->whereNotNull('transactions.trx_date')
                 ->where('products.category_id', $categoryId)
                 ->selectRaw('DAYOFWEEK(transactions.trx_date) as day_num, HOUR(transactions.trx_date) as hour, COUNT(DISTINCT transactions.id) as total_trx')
                 ->groupBy('day_num', 'hour')
+                ->havingRaw('day_num IS NOT NULL AND hour IS NOT NULL')
                 ->get();
         }
 
