@@ -60,18 +60,27 @@ class RealisticTransactionSeeder extends Seeder
                 $itemCount = rand(1, 4);
                 $details = [];
                 $totalAmount = 0;
+                $totalCogs = 0;
 
                 // LANGKAH A: Siapkan barang dari Kolam Undian
-                $totalCogs = 0;
                 for ($j = 0; $j < $itemCount; $j++) {
                     $randomProduct = $productPool[array_rand($productPool)];
 
                     $price = $randomProduct->price;
-                    $cogs = $randomProduct->cogs;
+                    $baseCogs = $randomProduct->cogs;
+
+                    // SIMULASI SUPPLY CHAIN ISSUE UNTUK DEMO
+                    if ($startDate->month === 4 && $startDate->year === 2026) {
+                        // April: Biaya modal naik drastis (Margin jadi ~15-18%)
+                        $baseCogs = $price * 0.82; 
+                    } elseif ($startDate->month === 5 && $startDate->year === 2026) {
+                        // May: Biaya modal naik sedang (Margin jadi ~30-35%)
+                        $baseCogs = $price * 0.65;
+                    }
 
                     $qty = rand(1, 3);
                     $subtotal = $price * $qty;
-                    $subtotalCogs = $cogs * $qty;
+                    $subtotalCogs = $baseCogs * $qty;
 
                     $totalAmount += $subtotal;
                     $totalCogs += $subtotalCogs;
@@ -86,12 +95,14 @@ class RealisticTransactionSeeder extends Seeder
                     ];
                 }
 
+                $netProfit = $totalAmount - $totalCogs;
+
                 // LANGKAH B: Buat Transaksi
                 $trxId = DB::table('transactions')->insertGetId([
                     'receipt_no' => 'TRX-' . $trxTime->format('Ymd') . '-' . str_pad($receiptCounter++, 4, '0', STR_PAD_LEFT),
                     'total_amount' => $totalAmount,
                     'total_cogs' => $totalCogs,
-                    'net_profit' => $totalAmount - $totalCogs,
+                    'net_profit' => $netProfit,
                     'trx_date' => $trxTime->toDateString(),
                     'created_at' => $trxTime,
                     'updated_at' => $trxTime,
