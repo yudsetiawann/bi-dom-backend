@@ -35,6 +35,7 @@ class DashboardService
     public function getAvailableYears(): array
     {
         $years = $this->repo->getAvailableYears();
+        $years = array_map('intval', $years);
 
         return empty($years) ? [(int) date('Y')] : $years;
     }
