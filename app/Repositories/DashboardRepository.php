@@ -297,6 +297,9 @@ class DashboardRepository
         }
 
         return $data->map(function ($row) use ($daysMap) {
+            $row->day_num = (int) $row->day_num;
+            $row->hour = (int) $row->hour;
+            $row->total_trx = (int) $row->total_trx;
             $row->day_name = $daysMap[$row->day_num] ?? 'Unknown';
             return $row;
         });
