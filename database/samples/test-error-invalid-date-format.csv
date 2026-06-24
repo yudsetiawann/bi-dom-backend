@@ -1,0 +1,3 @@
+receipt_no,trx_date,total_amount,payment_method
+DOM-ERR-DATE-001,yesterday,50000,QRIS
+DOM-ERR-DATE-002,"2026/06/35 25:00:00",70000,CASH

@@ -1,0 +1,5 @@
+receipt_no,trx_date,product_name,qty,subtotal,payment_method
+DOM-ERR-NULL-001,"2026-06-01 10:00:00",Americano,2,40000,QRIS
+DOM-ERR-NULL-002,,"Kopi Latte",1,25000,CASH
+DOM-ERR-NULL-003,"2026-06-01 10:30:00",,1,25000,DEBIT
+DOM-ERR-NULL-004,"2026-06-01 10:45:00",Americano,,40000,QRIS

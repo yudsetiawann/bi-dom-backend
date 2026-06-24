@@ -1,0 +1,1 @@
+{ "receipt_no": "DOM-JSON-001", "trx_date": "2026-06-01 10:00:00", "total_amount": 100000 }

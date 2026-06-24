@@ -1,0 +1,5 @@
+receipt_no,trx_date,product_name,qty,subtotal,payment_method
+DOM-ERR-UNK-001,"2026-06-12 09:05:00","DOM's Original",2,50000,QRIS
+DOM-ERR-UNK-001,"2026-06-12 09:05:00","Kopi Luwak Premium",1,150000,QRIS
+DOM-ERR-UNK-002,"2026-06-12 09:20:00","Typo Latte",3,75000,DEBIT
+DOM-ERR-UNK-003,"2026-06-12 09:30:00",Americano,1,20000,CASH
