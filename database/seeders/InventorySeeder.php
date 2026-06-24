@@ -56,6 +56,7 @@ class InventorySeeder extends Seeder
         ];
 
         foreach ($items as $item) {
+            $item['current_stock'] = $item['current_stock'] * 10000;
             Inventory::updateOrCreate(['item_name' => $item['item_name']], $item);
         }
 
