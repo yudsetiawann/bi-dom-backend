@@ -41,8 +41,6 @@ class InventoryForecastCalculator
             'id' => $item->id,
             'item_name' => $item->item_name,
             'current_stock' => $item->current_stock,
-            'min_stock' => $item->min_stock,
-            'usage_per_trx' => $item->usage_per_trx,
             'unit' => $item->unit,
             'predicted_usage' => round($predictedUsage, 2),
             'usage_basis' => $usageBasis,
